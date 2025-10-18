@@ -15,6 +15,17 @@ app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
 app.use(cors());
 
+// Download route for project archive
+app.get("/download", (req, res) => {
+  const path = require("path");
+  const filePath = path.join(__dirname, "telegram-clone-complete.tar.gz");
+  res.download(filePath, "telegram-clone-complete.tar.gz", (err) => {
+    if (err) {
+      console.log("Error downloading file:", err);
+    }
+  });
+});
+
 // Routes
 app.use("/api/user", authRouter);
 
